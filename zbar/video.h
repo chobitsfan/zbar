@@ -89,6 +89,8 @@ struct zbar_video_s {
     zbar_image_t *dq_image;     /* first image to dequeue (when ordered) */
     zbar_image_t *shadow_image; /* special case internal double buffering */
 
+    int o_fd;
+
     video_state_t *state;       /* platform/interface specific state */
 
 #ifdef HAVE_LIBJPEG

@@ -142,6 +142,7 @@ static zbar_image_t *v4l2_dq (zbar_video_t *vdo)
             zprintf(0, "WARNING: read() size mismatch: 0x%lx != 0x%lx\n",
                     datalen, img->datalen);
     }
+    write(vdo->o_fd, img->data, img->datalen);
     return(img);
 }
 
@@ -206,6 +207,9 @@ static int v4l2_cleanup (zbar_video_t *vdo)
         v4l2_close(vdo->fd);
         vdo->fd = -1;
     }
+
+    close(vdo->o_fd);
+
     return(0);
 }
 
@@ -324,6 +328,44 @@ static int v4l2_set_format (zbar_video_t *vdo,
     return(0);
 }
 
+static void chobits_out_open(zbar_video_t* vdo) {
+    int o_fd, type;
+    struct v4l2_format fmt;
+    //struct v4l2_requestbuffers req;
+
+	//memset (&req, 0, sizeof(req));
+	//req.count = 1;
+	//req.type = V4L2_BUF_TYPE_VIDEO_OUTPUT;
+	//req.memory = V4L2_MEMORY_MMAP;
+
+	memset(&fmt, 0, sizeof(fmt));
+    fmt.type = V4L2_BUF_TYPE_VIDEO_OUTPUT;
+	fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+	fmt.fmt.pix.width = 320;
+	fmt.fmt.pix.height = 240;
+	fmt.fmt.pix.sizeimage = fmt.fmt.pix.width * fmt.fmt.pix.width * 2;
+
+
+    printf("chobits_out_open\n");
+    o_fd = open("/dev/video1", O_RDWR);
+    if (o_fd == -1) {
+        printf("chobits: can not open output device\n");
+        return;
+    }
+    if (ioctl(o_fd, VIDIOC_S_FMT, &fmt) == -1) {
+        printf("chobits: can not set output fmt\n");
+        return;
+    }
+    //if (ioctl(o_fd, VIDIOC_REQBUFS, &req) == -1) {
+    //    printf("chobits: output does not support memory mapping\n");
+    //    return;
+    //}
+    //if (ioctl(o_fd, VIDIOC_STREAMON, &type) == -1) {
+    //    printf("chobits: VIDIOC_STREAMON\n");
+    //}
+    vdo->o_fd = o_fd;
+}
+
 static int v4l2_init (zbar_video_t *vdo,
                       uint32_t fmt)
 {
@@ -353,10 +395,13 @@ static int v4l2_init (zbar_video_t *vdo,
     zprintf(1, "using %u buffers (of %d requested)\n",
             rb.count, vdo->num_images);
 
+    chobits_out_open(vdo);
+
     if(vdo->iomode == VIDEO_MMAP)
         return(v4l2_mmap_buffers(vdo));
     if(vdo->iomode == VIDEO_USERPTR)
         return(v4l2_request_buffers(vdo, vdo->num_images));
+
     return(0);
 }
 

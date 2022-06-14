@@ -405,12 +405,12 @@ int zbar_processor_init (zbar_processor_t *proc,
         goto done;
 
     if(proc->video && proc->force_input) {
-	printf("chobits: zbar_video_init\n");
+	    printf("chobits: zbar_video_init\n");
         if(zbar_video_init(proc->video, proc->force_input))
             rc = err_copy(proc, proc->video);
     }
     else if(proc->video) {
-	printf("chobits: zbar_negotiate_format\n");	
+	    printf("chobits: zbar_negotiate_format\n");	
         int retry = -1;
         if(proc->window) {
             retry = zbar_negotiate_format(proc->video, proc->window);

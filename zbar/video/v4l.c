@@ -70,5 +70,6 @@ int _zbar_video_open (zbar_video_t *vdo,
         v4l2_close(vdo->fd);
         vdo->fd = -1;
     }
+
     return(rc);
 }
