@@ -1,0 +1,3 @@
+sudo modprobe v4l2loopback video_nr=1,2
+v4l2tools/v4l2compress_omx /dev/video1 /dev/video2
+rtspserver -f -P 8554 /dev/video2
