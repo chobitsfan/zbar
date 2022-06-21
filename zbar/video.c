@@ -466,7 +466,7 @@ const char* ezd_find_glyph(const char* x_pFt, const char ch )
 }
 
 //modified from ezdib
-void ezd_draw_bmp_8( unsigned char *pImg, int x, int y, int sw, int pw,int bw, int bh, char *pBmp)
+void ezd_draw_bmp_8( unsigned char *pImg, int x, int y, int sw, int pw,int bw, int bh, const char *pBmp)
 {
 	int w, h, lx = x;
 	unsigned char m = 0x80;
@@ -533,8 +533,8 @@ void ezd_text(unsigned char *img, char *x_pText, int x_nTextLen, int x, int y) {
 ssize_t write(int fd, const void *buf, size_t count);
 void chobits_write_frame(zbar_video_t *video, zbar_image_t *img, char* symbol_data, int x, int y) {
     if (x >= 0) {
-        printf("chobits :%s\n", symbol_data);
-        ezd_text(img->data, symbol_data, -1, 50, 50);
+        //printf("chobits :%s\n", symbol_data);
+        ezd_text(img->data, symbol_data, -1, x, y);
     }
     write(video->o_fd, img->data, img->datalen);
 }

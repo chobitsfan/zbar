@@ -126,6 +126,15 @@ int _zbar_process_image (zbar_processor_t *proc,
             zbar_symbol_set_ref(syms, 1);
         }
 
+        {
+            const zbar_symbol_t *sym = zbar_image_first_symbol(img);
+            if (sym) {
+                chobits_write_frame(proc->video, img, sym->data, sym->pts[0].x, sym->pts[0].y);
+            } else {
+                chobits_write_frame(proc->video, img, 0, -1000, -1000);
+            }
+        }
+#if 0
         if (nsyms > 0)  {
             //printf("chobits %u\n", proc->syms->head->npts);
             const zbar_symbol_t *sym = proc->syms->head;
@@ -133,6 +142,7 @@ int _zbar_process_image (zbar_processor_t *proc,
         } else {
             chobits_write_frame(proc->video, img, 0, -1000, -1000);
         }
+#endif
     }
 
     /* display to window if enabled */
