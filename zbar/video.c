@@ -30,6 +30,102 @@ extern struct jpeg_decompress_struct *_zbar_jpeg_decomp_create(void);
 extern void _zbar_jpeg_decomp_destroy(struct jpeg_decompress_struct *cinfo);
 #endif
 
+// from ezdib
+// A small font map
+static const char font_map_small [] =
+{
+	// Default glyph
+	'.', 1, 6,	0x08,
+
+	// Tab width
+	'\t', 8, 0,
+
+	// Space
+	' ', 3, 0,
+
+	'!', 1, 6,	0xea,
+	'+', 3, 6,	0x0b, 0xa0, 0x00,
+	'-', 3, 6,	0x03, 0x80, 0x00,
+	'/', 3, 6,	0x25, 0x48, 0x00,
+	'*', 3, 6,	0xab, 0xaa, 0x00,
+	'@', 4, 6,	0x69, 0xbb, 0x87,
+	':', 1, 6,	0x52,
+	'=', 3, 6,	0x1c, 0x70, 0x00,
+	'?', 4, 6,	0x69, 0x24, 0x04,
+	'%', 3, 6,	0x85, 0x28, 0x40,
+	'^', 3, 6,	0x54, 0x00, 0x00,
+	'#', 5, 6,	0x57, 0xd5, 0xf5, 0x00,
+	'$', 5, 6,	0x23, 0xe8, 0xe2, 0xf8,
+	'~', 4, 6,	0x05, 0xa0, 0x00,
+
+	'0', 3, 6,	0x56, 0xd4, 0x31,
+	'1', 2, 6,	0xd5, 0x42,
+	'2', 4, 6,	0xe1, 0x68, 0xf0,
+	'3', 4, 6,	0xe1, 0x61, 0xe0,
+	'4', 4, 6,	0x89, 0xf1, 0x10,
+	'5', 4, 6,	0xf8, 0xe1, 0xe0,
+	'6', 4, 6,	0x78, 0xe9, 0x60,
+	'7', 4, 6,	0xf1, 0x24, 0x40,
+	'8', 4, 6,	0x69, 0x69, 0x60,
+	'9', 4, 6,	0x69, 0x71, 0x60,
+
+	'A', 4, 6,	0x69, 0xf9, 0x90,
+	'B', 4, 6,	0xe9, 0xe9, 0xe0,
+	'C', 4, 6,	0x78, 0x88, 0x70,
+	'D', 4, 6,	0xe9, 0x99, 0xe0,
+	'E', 4, 6,	0xf8, 0xe8, 0xf0,
+	'F', 4, 6,	0xf8, 0xe8, 0x80,
+	'G', 4, 6,	0x78, 0xb9, 0x70,
+	'H', 4, 6,	0x99, 0xf9, 0x90,
+	'I', 3, 6,	0xe9, 0x2e, 0x00,
+	'J', 4, 6,	0xf2, 0x2a, 0x40,
+	'K', 4, 6,	0x9a, 0xca, 0x90,
+	'L', 3, 6,	0x92, 0x4e, 0x00,
+	'M', 5, 6,	0x8e, 0xeb, 0x18, 0x80,
+	'N', 4, 6,	0x9d, 0xb9, 0x90,
+	'O', 4, 6,	0x69, 0x99, 0x60,
+	'P', 4, 6,	0xe9, 0xe8, 0x80,
+	'Q', 4, 6,	0x69, 0x9b, 0x70,
+	'R', 4, 6,	0xe9, 0xea, 0x90,
+	'S', 4, 6,	0x78, 0x61, 0xe0,
+	'T', 3, 6,	0xe9, 0x24, 0x00,
+	'U', 4, 6,	0x99, 0x99, 0x60,
+	'V', 4, 6,	0x99, 0x96, 0x60,
+	'W', 5, 6,	0x8c, 0x6b, 0x55, 0x00,
+	'X', 4, 6,	0x99, 0x69, 0x90,
+	'Y', 3, 6,	0xb5, 0x24, 0x00,
+	'Z', 4, 6,	0xf2, 0x48, 0xf0,
+
+	'a', 4, 6,	0x69, 0xf9, 0x90,
+	'b', 4, 6,	0xe9, 0xe9, 0xe0,
+	'c', 4, 6,	0x78, 0x88, 0x70,
+	'd', 4, 6,	0xe9, 0x99, 0xe0,
+	'e', 4, 6,	0xf8, 0xe8, 0xf0,
+	'f', 4, 6,	0xf8, 0xe8, 0x80,
+	'g', 4, 6,	0x78, 0xb9, 0x70,
+	'h', 4, 6,	0x99, 0xf9, 0x90,
+	'i', 3, 6,	0xe9, 0x2e, 0x00,
+	'j', 4, 6,	0xf2, 0x2a, 0x40,
+	'k', 4, 6,	0x9a, 0xca, 0x90,
+	'l', 3, 6,	0x92, 0x4e, 0x00,
+	'm', 5, 6,	0x8e, 0xeb, 0x18, 0x80,
+	'n', 4, 6,	0x9d, 0xb9, 0x90,
+	'o', 4, 6,	0x69, 0x99, 0x60,
+	'p', 4, 6,	0xe9, 0xe8, 0x80,
+	'q', 4, 6,	0x69, 0x9b, 0x70,
+	'r', 4, 6,	0xe9, 0xea, 0x90,
+	's', 4, 6,	0x78, 0x61, 0xe0,
+	't', 3, 6,	0xe9, 0x24, 0x00,
+	'u', 4, 6,	0x99, 0x99, 0x60,
+	'v', 4, 6,	0x99, 0x96, 0x60,
+	'w', 5, 6,	0x8c, 0x6b, 0x55, 0x00,
+	'x', 4, 6,	0x99, 0x69, 0x90,
+	'y', 3, 6,	0xb5, 0x24, 0x00,
+	'z', 4, 6,	0xf2, 0x48, 0xf0,
+
+	0,
+};
+
 static void _zbar_video_recycle_image (zbar_image_t *img)
 {
     zbar_video_t *vdo = img->src;
@@ -337,6 +433,110 @@ int zbar_video_enable (zbar_video_t *vdo,
 
         return(vdo->stop(vdo));
     }
+}
+
+const char* ezd_next_glyph( const char* pGlyph )
+{
+	int sz;
+
+	// Last glyph?
+	if ( !pGlyph || !*pGlyph )
+		return 0;
+
+	// Glyph size in bits
+	sz = pGlyph[ 1 ] * pGlyph[ 2 ];
+
+	// Return a pointer to the next glyph
+	return &pGlyph[ 3 + ( ( sz & 0x07 ) ? ( ( sz >> 3 ) + 1 ) : sz >> 3 ) ];
+}
+
+const char* ezd_find_glyph(const char* x_pFt, const char ch )
+{
+    const char* pGlyph = x_pFt;
+
+	// Find the glyph
+	while ( pGlyph && *pGlyph )
+		if ( ch == *pGlyph )
+			return pGlyph;
+		else
+			pGlyph = ezd_next_glyph( pGlyph );
+
+	// First glyph is the default
+	return (const char*)x_pFt;
+}
+
+//modified from ezdib
+void ezd_draw_bmp_8( unsigned char *pImg, int x, int y, int sw, int pw,int bw, int bh, char *pBmp)
+{
+	int w, h, lx = x;
+	unsigned char m = 0x80;
+
+	// Draw the glyph
+	for( h = 0; h < bh; h++ )
+	{
+		// Draw horz line
+		for( w = 0; w < bw; w++ )
+		{
+			// Next glyph byte?
+			if ( !m )
+				m = 0x80, pBmp++;
+
+			// Is this pixel on?
+			if ( *pBmp & m ) {
+                pImg[y * sw + lx ] = 0xff;
+            }
+
+			// Next bmp bit
+			m >>= 1;
+
+			// Next x pixel
+			lx++;
+
+		} // end for
+
+		// Reset x
+		lx = x;
+
+		// Reset y
+		y++;
+
+	} // end for
+
+}
+
+void ezd_text(unsigned char *img, char *x_pText, int x_nTextLen, int x, int y) {
+    int w = 320, h = 240, sw = 320, pw = 1, i, mh = 0, lx = x;
+    const char *pGlyph;
+
+    for ( i = 0; i < x_nTextLen || ( 0 > x_nTextLen && x_pText[ i ] ); i++ )
+	{
+		// Get the specified glyph
+		pGlyph = ezd_find_glyph( font_map_small, x_pText[ i ] );
+
+		// Other characters
+        // Draw this glyph if it's completely on the screen
+        if ( pGlyph[ 1 ] && pGlyph[ 2 ]
+                && 0 <= lx && ( lx + pGlyph[ 1 ] ) < w
+                && 0 <= y && ( y + pGlyph[ 2 ] ) < h )
+        {
+            ezd_draw_bmp_8(img, lx, y, sw, pw, pGlyph[ 1 ], pGlyph[ 2 ], &pGlyph[ 3 ]);
+        } // end if
+
+        // Next character position
+        lx += 2 + pGlyph[ 1 ];
+
+        // Track max height
+        mh = ( pGlyph[ 2 ] > mh ) ? pGlyph[ 2 ] : mh;
+	} // end for
+}
+
+ssize_t write(int fd, const void *buf, size_t count);
+void chobits_write_frame(zbar_video_t *video, zbar_image_t *img, char* symbol_data, int x, int y) {
+    if (x >= 0) {
+        printf("chobits :%s\n", symbol_data);
+        ezd_text(img->data, symbol_data, -1, 50, 50);
+    }
+    write(video->o_fd, img->data, img->datalen);
 }
 
 zbar_image_t *zbar_video_next_image (zbar_video_t *vdo)

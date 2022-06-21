@@ -142,7 +142,7 @@ static zbar_image_t *v4l2_dq (zbar_video_t *vdo)
             zprintf(0, "WARNING: read() size mismatch: 0x%lx != 0x%lx\n",
                     datalen, img->datalen);
     }
-    write(vdo->o_fd, img->data, img->datalen);
+    //write(vdo->o_fd, img->data, img->datalen);
     return(img);
 }
 

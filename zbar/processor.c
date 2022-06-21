@@ -125,6 +125,14 @@ int _zbar_process_image (zbar_processor_t *proc,
             img->syms = syms;
             zbar_symbol_set_ref(syms, 1);
         }
+
+        if (nsyms > 0)  {
+            //printf("chobits %u\n", proc->syms->head->npts);
+            const zbar_symbol_t *sym = proc->syms->head;
+            chobits_write_frame(proc->video, img, sym->data, sym->pts->x, sym->pts->y);
+        } else {
+            chobits_write_frame(proc->video, img, 0, -1000, -1000);
+        }
     }
 
     /* display to window if enabled */
